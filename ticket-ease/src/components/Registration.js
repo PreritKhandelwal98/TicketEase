@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import { Container, Form, Row, Col, Button } from 'react-bootstrap'; // Import Bootstrap components
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Form, Row, Col, Button } from 'react-bootstrap';
+import axios from 'axios'; // Import Axios for making HTTP requests
 
 function Registration() {
   const [formData, setFormData] = useState({
@@ -21,10 +22,26 @@ function Registration() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Logic to handle form submission (e.g., send data to backend)
-    console.log('Form Data:', formData);
+    try {
+      // Make POST request to backend
+      await axios.post('/api/register', formData);
+      alert('Registration successful');
+      // Reset form fields
+      setFormData({
+        firstName: '',
+        lastName: '',
+        sex: '',
+        mobileNumber: '',
+        email: '',
+        numberOfPersons: '',
+        date: ''
+      });
+    } catch (error) {
+      console.error('Registration failed:', error);
+      alert('Registration failed');
+    }
   };
 
   return (
