@@ -1,45 +1,131 @@
-// components/RegistrationForm.js
-
 import React, { useState } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import { Container, Form, Row, Col, Button } from 'react-bootstrap'; // Import Bootstrap components
 
 function Registration() {
   const [formData, setFormData] = useState({
-    // Define state variables for form fields
-    // Example: name, email, payment details, etc.
+    firstName: '',
+    lastName: '',
+    sex: '',
+    mobileNumber: '',
+    email: '',
+    numberOfPersons: '',
+    date: ''
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: value
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Logic to handle form submission (e.g., send data to backend)
+    console.log('Form Data:', formData);
   };
 
   return (
-    <div>
-      <h2>Registration Form</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Input fields for user registration */}
-        {/* Example: Name, Email, Payment details, etc. */}
-        {/* Use controlled components with state variables */}
-        <input
-          type="text"
-          name="name"
-          value={formData.name || ''}
-          onChange={handleInputChange}
-          placeholder="Name"
-          required
-        />
-        {/* Other input fields */}
-        <button type="submit">Register</button>
-      </form>
-    </div>
+    <Container>
+      <h2 className="mt-4">Registration Form</h2>
+      <Form onSubmit={handleSubmit}>
+        <Row className="mb-3">
+          <Form.Group as={Col} controlId="formFirstName">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter first name"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="formLastName">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter last name"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+        </Row>
+
+        <Row className="mb-3">
+          <Form.Group as={Col} controlId="formSex">
+            <Form.Label>Sex</Form.Label>
+            <Form.Control
+              as="select"
+              name="sex"
+              value={formData.sex}
+              onChange={handleInputChange}
+              required
+            >
+              <option value="">Select sex</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </Form.Control>
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="formMobileNumber">
+            <Form.Label>Mobile Number</Form.Label>
+            <Form.Control
+              type="tel"
+              placeholder="Enter mobile number"
+              name="mobileNumber"
+              value={formData.mobileNumber}
+              onChange={handleInputChange}
+              required
+            />
+          </Form.Group>
+        </Row>
+
+        <Form.Group className="mb-3" controlId="formEmail">
+          <Form.Label>Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formNumberOfPersons">
+          <Form.Label>Number of Persons</Form.Label>
+          <Form.Control
+            type="number"
+            placeholder="Enter number of persons"
+            name="numberOfPersons"
+            value={formData.numberOfPersons}
+            onChange={handleInputChange}
+            required
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formDate">
+          <Form.Label>Date</Form.Label>
+          <Form.Control
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleInputChange}
+            required
+          />
+        </Form.Group>
+
+        <Button variant="primary" type="submit">
+          Register
+        </Button>
+      </Form>
+    </Container>
   );
 }
 
